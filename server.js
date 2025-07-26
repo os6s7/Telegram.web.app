@@ -4,8 +4,10 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
+// Serve static files from the web_app folder
 app.use(express.static(path.join(__dirname, 'web_app')));
 
+// Catch-all: return index.html for any unknown path
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'web_app', 'index.html'));
 });
