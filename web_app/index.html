@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Telegram Web App</title>
-</head>
-<body>
-  <h1>مرحبا في ويب آب تيليجرام!</h1>
-  <button onclick="sendData()">أرسل بيانات للبوت</button>
+const express = require('express');
+const path = require('path');
+const app = express();
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>
-    const tg = window.Telegram.WebApp;
+const port = process.env.PORT || 3000;
 
-    function sendData() {
-      tg.sendData(JSON.stringify({ product: "هدية", price: 10 }));
-    }
-  </script>
-</body>
-</html>
+app.use(express.static(path.join(__dirname, 'web_app')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web_app', 'index.html'));
+});
+
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server running on port ${port}`);
+});
